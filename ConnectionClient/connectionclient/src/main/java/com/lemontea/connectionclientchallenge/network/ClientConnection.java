@@ -45,7 +45,7 @@ public class ClientConnection extends Thread {
 			br = new BufferedReader(new InputStreamReader(input));
 			bw = new BufferedWriter(new OutputStreamWriter(output));
             connected = true;
-            this.logs += "Connected to \nHost : " + hostname + " \n Port : " + port +"\n";
+            this.logs += "Connected to \nHost : " + hostname + " \nPort : " + port +"\n";
         }catch(IOException e) {
             connected = false;
             e.printStackTrace();
@@ -55,10 +55,11 @@ public class ClientConnection extends Thread {
     }
 
     // Writes a string to the output stream of clientSocket
-	public void send(String command) {
+	public void send(String input) {
 		try {
-			bw.write((command + "\n").toCharArray());
+			bw.write((input + "\n").toCharArray());
 			bw.flush();
+            addLogs(input + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

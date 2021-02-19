@@ -65,9 +65,6 @@ public class Server extends Thread {
 	}
 
 	public void handleShutdown() throws IOException {
-		for(ServerWorker sw : serverWorkers){
-			sw.handleShutdown();
-		}
 		this.serverSocket.close();
 	}
 }
