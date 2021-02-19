@@ -41,13 +41,14 @@ public class ServerWorker extends Thread {
 		clientOutput = clientSocket.getOutputStream();
 		bf = new BufferedReader(new InputStreamReader(clientInput));
 		while (!clientSocket.isClosed() && (input = bf.readLine()) != null && input.trim()!=null) {
-			this.server.addLogs(input);
+			this.server.addLogs(clientSocket.toString() + " : " + input);
 			
 		}
 	}
 
 	// Closes everything properly
 	protected void handleShutdown() throws IOException {
+		this.server.addLogs("Lost Connection to : " + this.clientSocket.toString());
 		bf.close();
 		clientInput.close();
 		clientOutput.close();

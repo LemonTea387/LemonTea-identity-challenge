@@ -49,6 +49,8 @@ public class ClientConnection extends Thread {
         }catch(IOException e) {
             connected = false;
             e.printStackTrace();
+        }finally{
+            guiPane.update();
         }
     }
 

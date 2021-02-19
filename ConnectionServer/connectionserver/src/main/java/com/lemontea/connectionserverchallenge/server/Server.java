@@ -30,12 +30,13 @@ public class Server extends Thread {
 
 	// Handles all the accepting of connections
 	private void handleConnections() {
+		this.addLogs("Server is Up to handle connections! Awaiting Connections...");
 		try {
-			this.addLogs("Server is Up to handle connections! Awaiting Connections...");
 			while (true) {
 				Socket clientSocket = serverSocket.accept();
 				// Initializes a server worker thread to handle each specific connection into
 				// server
+				addLogs("New Connection : " + clientSocket.toString());
 				ServerWorker worker = new ServerWorker(this, clientSocket);
 				worker.start();
 				serverWorkers.add(worker);

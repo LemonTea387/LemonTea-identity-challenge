@@ -71,7 +71,7 @@ public class ConnectPromptPane {
             handleExit();
         }else{
             Platform.runLater(()->{
-                tFieldPort.setPromptText("Invalid Port Number!");
+                tFieldPort.setText("Invalid Port Number!");
             });
         }
     }

@@ -51,7 +51,6 @@ public class ConsolePane implements Updateable{
                 handleExit();
             });
             sendBoxText = "";
-            this.update();
         } catch (IOException e) {
             e.printStackTrace();
         }
