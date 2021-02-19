@@ -57,9 +57,11 @@ public class ClientConnection extends Thread {
     // Writes a string to the output stream of clientSocket
 	public void send(String input) {
 		try {
-			bw.write((input + "\n").toCharArray());
-			bw.flush();
-            addLogs(input + "\n");
+            if(connection != null && !connection.isClosed()){
+                bw.write((input + "\n").toCharArray());
+    			bw.flush();
+                addLogs(input + "\n");
+            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
