@@ -1,0 +1,9 @@
+.vscode
+LogicConnection/logicconnection/target
+LogicConnection/logicconnection/.settings
+ConnectionClient/connectionclient/.settings
+ConnectionClient/connectionclient/src/test
+ConnectionClient/connectionclient/target
+ConnectionServer/connectionserver/.settings
+ConnectionServer/connectionserver/src/test
+ConnectionServer/connectionserver/target
