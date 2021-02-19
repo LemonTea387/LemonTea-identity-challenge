@@ -13,18 +13,26 @@ public class Server extends Thread {
 	private ArrayList<ServerWorker> serverWorkers = new ArrayList<ServerWorker>();
 	private String logs = "";
 	private ConsolePane guiPane;
+
+	private boolean isServerUp;
 	public Server(int port) {
 		final int PORT = port;
 		try {
 			serverSocket = new ServerSocket(PORT);
+			isServerUp = true;
 		} catch (IOException e) {
+			isServerUp = false;
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void run() {
-		handleConnections();
+		if(isServerUp){
+			handleConnections();
+		}else{
+			this.addLogs("Server had an error starting :(");
+		}
 		super.run();
 	}
 
@@ -62,6 +70,10 @@ public class Server extends Thread {
 
 	public String getLogs(){
 		return logs;
+	}
+
+	public boolean getServerStatus(){
+		return isServerUp;
 	}
 
 	public void handleShutdown() throws IOException {

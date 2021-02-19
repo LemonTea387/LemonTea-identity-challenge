@@ -48,7 +48,9 @@ public class ConsolePane implements Updateable{
 
     private void handleExit() {
         try {
-            this.server.handleShutdown();
+            if(this.server.getServerStatus()){
+                this.server.handleShutdown();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
