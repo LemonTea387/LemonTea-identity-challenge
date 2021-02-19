@@ -37,12 +37,11 @@ public class ServerWorker extends Thread {
 	// Ran initially and keeps running until quit flag is set
 	private void handleClients() throws IOException {
 		String input;
-		String[] tokens;
 		clientInput = clientSocket.getInputStream();
 		clientOutput = clientSocket.getOutputStream();
 		bf = new BufferedReader(new InputStreamReader(clientInput));
-		while (!clientSocket.isClosed() && (input = bf.readLine().trim()) != null) {
-            
+		while (!clientSocket.isClosed() && (input = bf.readLine()) != null && input.trim()!=null) {
+			this.server.addLogs(input);
 		}
 	}
 

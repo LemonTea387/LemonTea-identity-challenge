@@ -7,16 +7,22 @@ import java.net.URL;
 
 import com.lemontea.connectionserverchallenge.server.Server;
 
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ConsolePane {
+public class ConsolePane implements Updateable{
     private URL consoleLayout;
     private FXMLLoader fxmlLoader;
     private Server server;
     private Stage windowConsole;
+    
+    // FXML Components binding
+    public TextArea tAreaServerConsole = null;
 
     public ConsolePane(Server server) {
         this.server = server;
@@ -61,9 +67,17 @@ public class ConsolePane {
         this.fxmlLoader = new FXMLLoader();
         this.fxmlLoader.setLocation(consoleLayout);
         this.fxmlLoader.setController(this);
+
     }
 
     public Stage getStage(){
         return windowConsole;
+    }
+
+    @Override
+    public void update() {
+        Platform.runLater(()->  {
+            this.tAreaServerConsole.setText(server.getLogs());
+        });
     }
 }

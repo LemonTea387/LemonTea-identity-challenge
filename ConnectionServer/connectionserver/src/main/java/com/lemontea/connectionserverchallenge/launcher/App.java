@@ -19,6 +19,8 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         server = new Server(17170);
         consolePane = new ConsolePane(server);
+        server.setGUIController(consolePane);
+        server.start();
         consolePane.getStage().show();
     }
 
