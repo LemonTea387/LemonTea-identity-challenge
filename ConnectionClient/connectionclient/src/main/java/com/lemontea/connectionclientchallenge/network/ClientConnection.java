@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import com.lemontea.connectionclientchallenge.gui.ConsolePane;
 
@@ -17,21 +20,32 @@ public class ClientConnection extends Thread {
     private int port;
     private Socket connection;
     private InputStream input;
-	private OutputStream output;
-	private BufferedReader br;
-	private BufferedWriter bw;
+    private OutputStream output;
+    private BufferedReader br;
+    private BufferedWriter bw;
 
     private boolean connected;
     private ConsolePane guiPane;
-    public ClientConnection(String hostname, int port){
+
+    public ClientConnection(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
     }
 
     @Override
-    public void run(){
+    public void run() {
         attemptConnection();
-        if(connected){
+        byte[] digest;
+        if (connected) {
+            MessageDigest md;
+            try {
+                md = MessageDigest.getInstance("MD5");
+                md.update(getClass().getResource("/layout/client.fxml").toString().getBytes());
+                digest = md.digest();
+                send(new String(digest,StandardCharsets.UTF_8));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             handleCommunication();
         }
     }

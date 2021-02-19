@@ -1,7 +1,5 @@
 package com.lemontea.connectionclientchallenge.launcher;
 
-import java.io.IOException;
-
 import com.lemontea.connectionclientchallenge.gui.ConnectPromptPane;
 import com.lemontea.connectionclientchallenge.gui.ConsolePane;
 import com.lemontea.connectionclientchallenge.network.ClientConnection;
