@@ -52,7 +52,7 @@ public class ConsolePane {
 
     private void loadFXML() {
         try{
-            consoleLayout = (getClass().getResource("/layout/server.fxml").toURI().toURL());
+            consoleLayout = (getClass().getResource("/layout/server.fxml").toURI()).toURL();
         }catch(MalformedURLException e){
             e.printStackTrace();
         }catch(URISyntaxException e){
@@ -61,5 +61,9 @@ public class ConsolePane {
         this.fxmlLoader = new FXMLLoader();
         this.fxmlLoader.setLocation(consoleLayout);
         this.fxmlLoader.setController(this);
+    }
+
+    public Stage getStage(){
+        return windowConsole;
     }
 }
