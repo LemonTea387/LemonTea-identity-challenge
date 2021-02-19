@@ -42,6 +42,7 @@ public class ServerWorker extends Thread {
 		bf = new BufferedReader(new InputStreamReader(clientInput));
 		while (!clientSocket.isClosed() && (input = bf.readLine()) != null && input.trim()!=null) {
 			this.server.addLogs(input);
+			
 		}
 	}
 

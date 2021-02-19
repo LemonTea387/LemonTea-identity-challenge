@@ -8,7 +8,6 @@ import java.net.URL;
 import com.lemontea.connectionserverchallenge.server.Server;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
