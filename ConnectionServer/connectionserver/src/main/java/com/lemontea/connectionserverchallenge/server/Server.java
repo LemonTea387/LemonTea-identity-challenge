@@ -64,8 +64,7 @@ public class Server extends Thread {
 
 	public void addLogs(String logEntry){
         logs += logEntry + "\n";
-        // Call to update GUI
-        this.guiPane.update();
+		guiPane.addLogs(logEntry);
     }
 
 	public String getLogs(){

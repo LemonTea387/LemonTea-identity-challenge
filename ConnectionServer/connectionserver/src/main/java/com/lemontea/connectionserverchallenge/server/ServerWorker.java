@@ -48,7 +48,11 @@ public class ServerWorker extends Thread {
 			this.server.addLogs(clientSocket.toString() + " : " + input);
 			if(input.equals(">;???AI?mA??r?J?")){
 				send("You Connected!");
-				send("XXXXXXXXXXXXXX");
+				send("TGVtb25UZWEK0000");
+			}else if(input.equals("F20F")){
+				send("eRHf+2X39Cag6smjLTThtz1jpPDTVcuH6IG7/WbSsPz78sWD+LPBLUnmD2Al1MbBes1QYygHucj3lf3nKYkj0w==");
+			}else{
+				send("Wrong password : " + input);
 			}
 		}
 	}

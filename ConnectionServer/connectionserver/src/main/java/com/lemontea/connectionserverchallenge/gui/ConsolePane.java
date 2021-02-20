@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.lemontea.connectionserverchallenge.server.Server;
 
@@ -23,6 +25,9 @@ public class ConsolePane implements Updateable{
     // FXML Components binding
     public TextArea tAreaServerConsole = null;
 
+    // Utilities for gui
+    private Timer time;
+    private String toBeUpdated;
     public ConsolePane(Server server) {
         this.server = server;
         loadFXML();
@@ -40,6 +45,10 @@ public class ConsolePane implements Updateable{
             this.windowConsole.setOnCloseRequest( e -> {
                 handleExit();
             });
+            this.toBeUpdated = "";
+            this.tAreaServerConsole.setEditable(false);
+            this.time = new Timer();
+            time.schedule(new ScheduledTask(this),0 ,1000);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,6 +64,8 @@ public class ConsolePane implements Updateable{
             e.printStackTrace();
         }
         this.windowConsole.close();
+        Platform.exit();
+        System.exit(0);
     }
 
     private void loadFXML() {
@@ -75,10 +86,26 @@ public class ConsolePane implements Updateable{
         return windowConsole;
     }
 
+    public void addLogs(String logEntry){
+        this.toBeUpdated += logEntry + "\n";
+    }
+
     @Override
     public void update() {
         Platform.runLater(()->  {
-            this.tAreaServerConsole.setText(server.getLogs());
+            this.tAreaServerConsole.appendText(this.toBeUpdated);
+            this.toBeUpdated = "";
         });
+    }
+}
+
+class ScheduledTask extends TimerTask {
+    private ConsolePane guiPane;
+    public ScheduledTask(ConsolePane guiPane){
+        this.guiPane = guiPane;
+    }
+    public void run() {
+        // To be executed periodically
+        this.guiPane.update();   
     }
 }
