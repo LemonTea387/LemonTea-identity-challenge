@@ -3,6 +3,9 @@ package com.lemontea.connectionserverchallenge.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import com.lemontea.connectionserverchallenge.gui.ConsolePane;

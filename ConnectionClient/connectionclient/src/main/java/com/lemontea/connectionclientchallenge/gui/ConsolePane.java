@@ -94,6 +94,7 @@ public class ConsolePane implements Updateable{
     private void onButtonReconnectClick() throws InterruptedException {
         connection = new ClientConnection(hostname, port);
         connection.start();
+        connection.setGUIController(this);
         Thread.sleep(1000);
         this.update();
     }

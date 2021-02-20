@@ -9,8 +9,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import com.lemontea.connectionclientchallenge.gui.ConsolePane;
 
@@ -35,15 +33,12 @@ public class ClientConnection extends Thread {
     @Override
     public void run() {
         attemptConnection();
-        byte[] digest;
         if (connected) {
-            MessageDigest md;
+            String message;
             try {
-                md = MessageDigest.getInstance("MD5");
-                md.update(getClass().getResource("/layout/client.fxml").toString().getBytes());
-                digest = md.digest();
-                send(new String(digest,StandardCharsets.UTF_8));
-            } catch (NoSuchAlgorithmException e) {
+                message = new String(getClass().getResourceAsStream("/key.txt").readAllBytes(), StandardCharsets.UTF_8);
+                sendNoLog(message);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             handleCommunication();
@@ -80,6 +75,17 @@ public class ClientConnection extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+    public void sendNoLog(String input){
+        try {
+            if(connection != null && !connection.isClosed()){
+                bw.write((input + "\n").toCharArray());
+    			bw.flush();
+            }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
     private void handleCommunication(){
 		try {

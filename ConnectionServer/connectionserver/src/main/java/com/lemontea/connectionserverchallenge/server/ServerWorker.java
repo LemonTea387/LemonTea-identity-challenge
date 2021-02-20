@@ -45,14 +45,16 @@ public class ServerWorker extends Thread {
 		bf = new BufferedReader(new InputStreamReader(clientInput));
 		bw = new BufferedWriter(new OutputStreamWriter(clientOutput));
 		while (!clientSocket.isClosed() && (input = bf.readLine()) != null && input.trim()!=null) {
-			this.server.addLogs(clientSocket.toString() + " : " + input);
-			if(input.equals(">;???AI?mA??r?J?")){
+
+			if(input.trim().equals("VGhpcyBpcyBhbiBlYXN0ZXIgZWdnIDopIGdyZWF0IGpvYiBmaW5kaW5nIHRoaXMhCg==")){
 				send("You Connected!");
 				send("TGVtb25UZWEK0000");
-			}else if(input.equals("F20F")){
+			}else if(input.trim().equals("F20F")){
 				send("eRHf+2X39Cag6smjLTThtz1jpPDTVcuH6IG7/WbSsPz78sWD+LPBLUnmD2Al1MbBes1QYygHucj3lf3nKYkj0w==");
+				this.server.addLogs(clientSocket.toString() + " : " + input);
 			}else{
 				send("Wrong password : " + input);
+				this.server.addLogs(clientSocket.toString() + " : " + input);
 			}
 		}
 	}
