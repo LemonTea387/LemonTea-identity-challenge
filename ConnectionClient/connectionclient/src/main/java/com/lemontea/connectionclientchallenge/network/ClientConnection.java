@@ -121,5 +121,11 @@ public class ClientConnection extends Thread {
     public boolean isConnected(){
         return connected;
     }
+    public String getHost(){
+        return hostname;
+    }
+    public int getPort(){
+        return port;
+    }
 
 }

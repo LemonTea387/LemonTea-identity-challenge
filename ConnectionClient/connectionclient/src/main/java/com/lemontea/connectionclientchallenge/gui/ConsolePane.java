@@ -32,9 +32,13 @@ public class ConsolePane implements Updateable{
 
     private String clientConsoleText;
     private String sendBoxText;
+    private String hostname;
+    private int port;
 
     public ConsolePane(ClientConnection connection){
         this.connection = connection;
+        this.hostname = connection.getHost();
+        this.port = connection.getPort();
         loadFXML();
         init();
     }
@@ -87,9 +91,11 @@ public class ConsolePane implements Updateable{
     }
 
     @FXML
-    private void onButtonReconnectClick(){
-        connection.attemptConnection();
-        update();
+    private void onButtonReconnectClick() throws InterruptedException {
+        connection = new ClientConnection(hostname, port);
+        connection.start();
+        Thread.sleep(1000);
+        this.update();
     }
 
     @Override
